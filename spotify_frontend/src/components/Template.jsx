@@ -15,18 +15,6 @@ import CreatePlaylistModal from "../modals/CreatePlaylistModal";
 import AddToPlaylistModal from "../modals/AddToPlaylistModal";
 import { makeAuthenticatedGETRequest, makeAuthenticatedPOSTRequest } from "../utils/serverHelpers";
 
-// const currentSong =
-//   {
-//       thumbnail : "https://res.cloudinary.com/djodcayme/image/upload/v1707413069/dzxbbftp55fhwixoddjt.jpg",
-//       name : "Song 1",
-//       songUrl : "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-//       artist : {
-//           firstName : "Artist",
-//           lastName : "1"
-//       }
-//   }
-//
-
 const Template = ({ children, curActiveScreen }) => {
 
   const {
@@ -50,22 +38,13 @@ const Template = ({ children, curActiveScreen }) => {
         }
         getData() ;
     },[])
-  
-     // search for the song in the liked songs
-  // const isSongLiked = () => {
-  //   for (let i = 0; i < likedSongData.length; i++) {
-  //     if (likedSongData[i]._id === currentSong._id) {
-  //       return true;
-  //     }
-  //   }
-  //   return false;
-  // };
 
   const isLikedSong = () => {
     for(let i = 0; i < likedSongData.length; i++){
       if(likedSongData[i]._id === currentSong._id){
-        setIsLiked(true);
 
+        setIsLiked(true);
+        return;
       }
 
       else{
@@ -97,7 +76,7 @@ const Template = ({ children, curActiveScreen }) => {
       // console.log(response);
     };
     unlikeTheSong();
-    setlikedSongData(likedSongData.filter((song) => song._id !== currentSong._id));
+    // setlikedSongData(likedSongData.filter((song) => song._id !== currentSong._id));
     setIsLiked(false);
   };
 
