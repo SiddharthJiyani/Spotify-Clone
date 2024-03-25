@@ -22,6 +22,7 @@ const LoginComponent = () => {
     },[items]);
 
     const login = async () => {
+        toast.loading('Please wait...')
         const data =  { email , password } ;
         const response = await makeUnauthenticatedPOSTRequest("/auth/login" , data) ; 
         // console.log(response);
@@ -34,6 +35,7 @@ const LoginComponent = () => {
             const date = new Date();
             date.setDate(date.getDate() + 1); 
             // to log out delete token -> console -> application -> token -> delete
+            toast.dismiss();
             toast.success('Logged in successfully', {
                 duration: 1000,
                 style: {
@@ -51,6 +53,7 @@ const LoginComponent = () => {
             } , 1000);
         }
         else{
+            toast.dismiss();
             toast.error(`${response.message}`, {
                 style: {
                 //   border: '1px solid #713200',
