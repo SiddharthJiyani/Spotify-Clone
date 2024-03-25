@@ -31,10 +31,17 @@ const MyMusic = ()  => {
     useEffect( () => {
 
         const getData = async () => {
-
+            toast.loading('Please wait...')
             const response = await makeAuthenticatedGETRequest("/song/get/mysongs");
             // console.log(response.data);
             setSongData(response.data);
+            toast.dismiss();
+            if(response.data.length === 0){
+                // toast.dismiss();
+                toast.error('No Songs Uploaded',{
+                    duration: 1500
+                });
+            }
         }
         getData() ;
 
@@ -49,11 +56,19 @@ const MyMusic = ()  => {
         <div className="text-white text-xl font-semibold pb-4 pl-2 pt-8">
             My Songs
         </div>
-        <div className="space-y-3 overflow-auto">
-            {songData.map((item,index) => {
-                return <SingleSongCard info={item} key={index} playSound={() => {}}  />;
-            })}
-        </div>
+        {
+            songData.length > 0 ? (
+                <div className="space-y-3 overflow-auto">
+                    {songData.map((item,index) => {
+                        return <SingleSongCard info={item} key={index} playSound={() => {}}  />;
+                    })}
+                </div>
+            ) : (
+                <div className="text-gray-500 text-xl font-semibold pb-4 pl-2 pt-8">
+                    No Songs Uploaded
+                </div>
+            )
+        }
     </Template>
 
   )

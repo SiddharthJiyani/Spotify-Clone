@@ -2,15 +2,23 @@ import React, { useEffect, useState } from 'react'
 import Template from './Template'
 import { makeAuthenticatedGETRequest } from '../utils/serverHelpers'
 import { Navigate, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const Library = () => {
 
     const [playlists, setPlaylists] = useState([]);
     useEffect ( () => {
+        toast.loading('Please wait...')
         const getData = async () => {
             const response = await makeAuthenticatedGETRequest('/playlist/get/MyPlaylist');
             console.log(response);
+            toast.dismiss();
             setPlaylists(response.data);
+            if(response.data.length === 0){
+                toast.error('No Playlists',{
+                    duration: 1000
+                });
+            }
         }
         getData();
     },[])
@@ -23,17 +31,23 @@ const Library = () => {
 
         <div className='py-5 flex gap-4 cursor-pointer'>
             {  
-                playlists.map((item,index) =>{
-                    return(
-                        <Card
-                            key={index}
-                            title={item.name}
-                            playlistId={item._id}
-                            description={item.songs.length + " songs"}
-                            imgUrl={item.thumbnail}
-                        />
-                    )
-                } )
+                playlists.length > 0 ? (
+                    playlists.map((item) => {
+                        return (
+                            <Card
+                                title={item.name}
+                                description={item.description}
+                                imgUrl={item.thumbnail}
+                                playlistId={item._id}
+                                key={item._id}
+                            />
+                        );
+                    })
+                ) : (
+                    <div className='text-gray-500 text-xl font-semibold pb-4 pl-2 pt-8'>
+                        No Playlists
+                    </div>
+                )
             }
         </div>
 

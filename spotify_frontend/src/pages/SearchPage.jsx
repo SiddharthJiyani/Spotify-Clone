@@ -3,6 +3,7 @@ import {Icon} from "@iconify/react";
 import {makeAuthenticatedGETRequest} from "../utils/serverHelpers";
 import Template from "../components/Template";
 import SingleSongCard from "../components/SingleSongCard";
+import toast from "react-hot-toast";
 
 const SearchPage = () => {
     const [isInputFocused, setIsInputFocused] = useState(false);
@@ -10,12 +11,14 @@ const SearchPage = () => {
     const [songData, setSongData] = useState([]);
 
     const searchSong = async () => {
+        toast.loading("Please wait...");
         // This function will call the search api
         const response = await makeAuthenticatedGETRequest(
             "/song/get/songname/" + searchText
         );
         // console.log(response);
         setSongData(response.data);
+        toast.dismiss();    
     };
 
     return (

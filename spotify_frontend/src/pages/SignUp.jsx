@@ -37,7 +37,7 @@ const SignUp = () => {
     } , [items]);
 
     const signup = async () =>{
-        
+        toast.loading('Please wait...')
         const data = {email , password , username , firstName , lastName};
         const response = await makeUnauthenticatedPOSTRequest("/auth/register", data);
         setItems(response);
@@ -49,6 +49,7 @@ const SignUp = () => {
             const date = new Date();
             date.setDate(date.getDate() + 1); // 30 seconds -> 1/48
             // to log out delete token -> console -> application -> token -> delete
+            toast.dismiss();
             toast.success('Signed up successfully', {
                 duration: 1000,
                 style: {
@@ -65,6 +66,7 @@ const SignUp = () => {
             },1000)
         }
         else{
+            toast.dismiss();
             toast.error(`${response.message}`, {
                 style: {
                 //   border: '1px solid #713200',

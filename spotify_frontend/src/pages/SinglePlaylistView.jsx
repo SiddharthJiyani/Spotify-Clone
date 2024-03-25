@@ -3,6 +3,7 @@ import Template from '../components/Template'
 import { useParams } from 'react-router-dom'
 import { makeAuthenticatedGETRequest } from '../utils/serverHelpers';
 import SingleSongCard from '../components/SingleSongCard';
+import toast from 'react-hot-toast';
 
 const SinglePlaylistView = () => {
     const {playlistId} = useParams();  // useParams is a hook to get the parameters from the url
@@ -11,12 +12,14 @@ const SinglePlaylistView = () => {
     // console.log(playlistId);
 
     useEffect( () =>{
+        toast.loading('Please wait...')
         const getData = async () => {
             const response = await makeAuthenticatedGETRequest(
                 "/playlist/get/playlist/" + playlistId
             )
             console.log(response);
             setSongDetails(response.data.songs);
+            toast.dismiss();
         }
         getData();
     },[])
