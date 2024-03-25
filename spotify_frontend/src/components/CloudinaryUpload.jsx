@@ -1,14 +1,14 @@
 import toast, { Toaster } from "react-hot-toast";
 import { openUploadWidget } from "../utils/CloudinaryService";
-import { cloudName, preset } from "../config";
+// import { cloudName, preset } from "../config";
 const CloudinaryUpload = ({setUrl, setName}) => {
   const uploadImageWidget = () => {
     // console.log(props);
     // console.log(preset)
     let myUploadWidget = openUploadWidget(
       {
-        cloudName: cloudName,
-        uploadPreset: preset, 
+        cloudName: "djodcayme",
+        uploadPreset: "SpotifyClone_preset", 
         // resourseType: "audio",
         // restrict extensions for audio file ->
         // tags: ["myname"],
