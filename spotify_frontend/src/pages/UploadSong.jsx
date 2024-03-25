@@ -44,12 +44,14 @@ const UploadSong = ()  => {
         // console.log(name);
         // console.log(thumbnail);
         // console.log(SongUrl);
+        const msg = "" ;
         try{
             const data = { name , thumbnail ,track : SongUrl  }
             // console.log(data)
 
             const response = await makeAuthenticatedPOSTRequest("/song/createSong" , data);
             console.log(response);
+            msg = response.message;
 
             response.success ? toast.success('Song uploaded successfully', {
                 duration: 2200,
@@ -71,7 +73,7 @@ const UploadSong = ()  => {
 
         catch(e){
             console.log(e);
-            toast.error(`${response.message}`,{
+            toast.error(`${msg}`,{
                 duration: 2200,
             style: {
                 fontWeight: 'bold',
