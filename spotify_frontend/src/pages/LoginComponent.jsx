@@ -22,10 +22,13 @@ const LoginComponent = () => {
     },[items]);
 
     const login = async () => {
-        toast.loading('Please wait...',{
-            duration : 4000
-        })
+        setTimeout(()=>{
+            toast.loading('Please wait...',{
+                duration : 4000
+            })
 
+        }, 4000);
+        
         toast.loading("It's taking longer than expected , Please wait...")
         const data =  { email , password } ;
         const response = await makeUnauthenticatedPOSTRequest("/auth/login" , data) ; 
