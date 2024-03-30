@@ -15,7 +15,6 @@ const SignUp = () => {
     const [firstName , setFirstname] = useState("");
     const [lastName , setLastname] = useState("");
     const [cookie,setCookie] = useCookies(["token"]);
-    const [items,setItems] = useState({});
     const navigate = useNavigate();
 
     
@@ -31,20 +30,16 @@ const SignUp = () => {
           });
     }
 
-    // store in loacal storage
-    useEffect(() => {
-        localStorage.setItem('items', JSON.stringify(items));
-    } , [items]);
 
     const signup = async () =>{
         toast.loading('Please wait...')
         const data = {email , password , username , firstName , lastName};
         const response = await makeUnauthenticatedPOSTRequest("/auth/register", data);
-        setItems(response);
-        console.log(response);
+
+        // console.log(response);
         if( response && response.success !== false){
             console.log("User Created");
-            console.log(response);
+            // console.log(response);
             const token = response.newUser.token;
             const date = new Date();
             date.setDate(date.getDate() + 1); // 30 seconds -> 1/48

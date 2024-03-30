@@ -14,9 +14,9 @@ const Profile = () => {
         // }
         // getData();
         const items = JSON.parse(localStorage.getItem('items'));
-        console.log("items : ",items);
+        // console.log("items : ",items);
         if (items) {
-            setProfileData(items.user);
+            setProfileData(items);
         }
     }, [])
 
@@ -34,7 +34,7 @@ const Profile = () => {
             </p>
             <p>
                 Email: <span className='text-[#1fdf64]'>
-                    {profileData?.email}
+                    {profileData?.aemail}
                 </span>
             </p>
             <p>

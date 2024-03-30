@@ -22,17 +22,21 @@ const LoginComponent = () => {
     },[items]);
 
     const login = async () => {
-        toast.loading('Please wait...',{
-            duration : 4000
-        })
-        setTimeout(()=>{
-            toast.loading("It's taking longer than expected , Please wait...")
-        }, 4000);
-        
+        toast.loading('Please wait...')
         const data =  { email , password } ;
         const response = await makeUnauthenticatedPOSTRequest("/auth/login" , data) ; 
-        // console.log(response);
-        setItems(response);
+        console.log(response.user);
+        const firstName = response.user.firstName;
+        const lastName = response.user.lastName;
+        const aemail = response.user.email;
+        const username = response.user.username;
+        const data_to_store = {
+            firstName,
+            lastName,
+            aemail,
+            username
+        }
+        setItems(data_to_store);
 
         if( response && response.success != false){
             console.log("User Created");
